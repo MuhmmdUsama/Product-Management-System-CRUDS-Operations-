@@ -12,7 +12,7 @@ let title = document.getElementById('title'),
 let dataProduct = JSON.parse(localStorage.getItem('product')) || [];
 
 //   EventListener
-submit.addEventListener('click', submitDataProduct);
+submit.addEventListener('click', countProduct);
 
 //   get Total
 function getTotal() {
@@ -42,7 +42,7 @@ function submitDataProduct() {
   dataProduct.push(newProduct);
   localStorage.setItem('product', JSON.stringify(dataProduct));
   showDataProduct();
-  clearDataInput();
+  //   clearDataInput();
 }
 
 // Clear Data Input
@@ -62,6 +62,7 @@ showDataProduct();
 function showDataProduct() {
   let productTable = '';
   dataProduct.forEach((e, index) => {
+    e.index = index;
     productTable += `
          <tr>
               <td id = "td-id">${index + 1}</td>
@@ -76,7 +77,6 @@ function showDataProduct() {
               <td><button id="delete" class="bi bi-trash" onclick="deleteDataProduct(${index})"></button></td>
         </tr>
     `;
-    e.index = index;
     title.focus();
   });
 
@@ -100,7 +100,7 @@ function deleteDataProduct(index) {
 function deleteAllProduct(value) {
   let deleteAll = document.querySelector('.delete-all');
   deleteAll.innerHTML = `
-    <button id="delete-all" class="${value}" >Clear All Data</button>`;
+    <button id="delete-all" class="${value}" >Clear All Data (${dataProduct.length})</button>`;
 
   document.getElementById('delete-all').addEventListener('click', () => {
     // localStorage.clear();
@@ -108,4 +108,16 @@ function deleteAllProduct(value) {
     dataProduct.splice(0);
     showDataProduct();
   });
+}
+
+function countProduct() {
+  let countItems = +count.value;
+  if (countItems > 0) {
+    for (let i = 0; i < countItems; i++) {
+      submitDataProduct();
+    }
+  } else {
+    submitDataProduct();
+  }
+  clearDataInput();
 }
