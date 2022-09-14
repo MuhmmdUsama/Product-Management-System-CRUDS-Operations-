@@ -10,6 +10,14 @@ body {
   font-family: 'Courier New', Courier, monospace;
 }
 
+.none {
+  display: none;
+}
+
+.show{
+  display: block;
+}
+
 .crud {
   width: 80%;
   margin: auto;
@@ -59,7 +67,7 @@ input:focus {
 }
 
 #total::before {
-  content: 'TOTAL:';
+  content: 'TOTAL: ';
   background: #222;
   padding: 9px 0 9px 0;
 }
@@ -90,4 +98,32 @@ button:hover {
 
 .searchBtn button {
   width: 40%;
+}
+
+table {
+  width: 100%;
+  margin: 1rem auto;
+  text-align: center;
+}
+
+.table-head {
+  background: #111;
+  color: #b2b2b2;
+  height: 30px;
+  text-transform: uppercase;
+}
+
+.table-head td {
+  padding: 1rem;
+}
+
+table button {
+  background: none;
+  color: #fff;
+}
+
+#delete:hover,
+#delete-all:hover {
+  background: red;
+  color: #fff;
 }
