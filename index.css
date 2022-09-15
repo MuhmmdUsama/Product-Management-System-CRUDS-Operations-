@@ -14,7 +14,7 @@ body {
   display: none;
 }
 
-.show{
+.show {
   display: block;
 }
 
@@ -68,7 +68,7 @@ input:focus {
 
 #total::before {
   content: 'TOTAL: ';
-  background: #222;
+  /* background: #222; */
   padding: 9px 0 9px 0;
 }
 
@@ -100,11 +100,6 @@ button:hover {
   width: 40%;
 }
 
-.table{
-  height: 500px;
-  overflow-y: scroll;
-}
-
 table {
   width: 100%;
   margin: 1rem auto;
@@ -118,13 +113,21 @@ table {
   text-transform: uppercase;
 }
 
-.table-head td {
-  /* padding: 1rem; */
+.table-head-m {
+  color: #b2b2b2;
+  height: 30px;
+  text-transform: uppercase;
+  overflow-y: scroll;
 }
 
 table button {
   background: none;
   color: #fff;
+}
+
+.table {
+  height: 500px;
+  overflow-y: scroll;
 }
 
 #delete:hover,

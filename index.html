@@ -19,38 +19,52 @@
       </header>
 
       <div class="inputs">
-        <input type="text" placeholder="title" id="title" />
+        <input type="text" placeholder="title" id="title" class="inputField" />
 
-        <div class="price-section">
+        <div class="price-section" id="price-section">
           <input
             onkeyup="getTotal()"
             type="number"
             placeholder="Price"
             id="price"
+            class="inputField"
           />
           <input
             onkeyup="getTotal()"
             type="number"
             placeholder="taxes"
             id="taxes"
+            class="inputField"
           />
           <input
             onkeyup="getTotal()"
             type="number"
             placeholder="ads"
             id="ads"
+            class="inputField"
           />
           <input
             onkeyup="getTotal()"
             type="number"
             placeholder="discount"
             id="discount"
+            class="inputField"
           />
-          <small id="total">----</small>
+          <small id="total" class="inputField">----</small>
         </div>
 
-        <input type="number" placeholder="count" id="count" />
-        <input type="text" placeholder="category" id="category" />
+        <input
+          type="number"
+          placeholder="count"
+          id="count"
+          class="inputField"
+        />
+        <input
+          type="text"
+          placeholder="category"
+          id="category"
+          class="inputField"
+        />
         <button id="submit">Create</button>
       </div>
 
@@ -63,7 +77,11 @@
           </div>
         </div>
         <hr />
+
         <div class="delete-all"></div>
+
+        <hr />
+
         <div class="table">
           <table>
             <tr class="table-head">
@@ -78,8 +96,7 @@
               <th>update</th>
               <th>delete</th>
             </tr>
-  
-            <tbody id="product-tbody"></tbody>
+            <tbody id="product-tbody" class="product-tbody"></tbody>
           </table>
         </div>
       </div>

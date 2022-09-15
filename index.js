@@ -8,11 +8,14 @@ let title = document.getElementById('title'),
   category = document.getElementById('category'),
   submit = document.getElementById('submit');
 
+let mood = 'creat';
+let temp;
+
 //   Data Storage
 let dataProduct = JSON.parse(localStorage.getItem('product')) || [];
 
 //   EventListener
-submit.addEventListener('click', countProduct);
+submit.addEventListener('click', submitDataProduct);
 
 //   get Total
 function getTotal() {
@@ -21,7 +24,7 @@ function getTotal() {
       +price.value + +taxes.value + +ads.value - +discount.value;
     total.innerHTML = totalResult + `جم `;
   } else {
-    total.innerHTML = '----';
+    total.innerHTML = '$$$';
   }
 }
 
@@ -39,22 +42,25 @@ function submitDataProduct() {
     index: dataProduct.length + 1,
   };
 
-  dataProduct.push(newProduct);
+  //check if create or update mood is On
+  if (mood === 'creat') {
+    //using count number to create multi products
+    if (newProduct.count > 1) {
+      for (let i = 0; i < newProduct.count; i++) {
+        dataProduct.push(newProduct);
+      }
+    } else {
+      dataProduct.push(newProduct);
+    }
+  } else {
+    dataProduct[temp] = newProduct;
+    submit.innerHTML = 'Create';
+    count.style.display = 'block';
+  }
+
   localStorage.setItem('product', JSON.stringify(dataProduct));
   showDataProduct();
-  //   clearDataInput();
-}
-
-// Clear Data Input
-function clearDataInput() {
-  title.value = '';
-  price.value = '';
-  taxes.value = '';
-  ads.value = '';
-  discount.value = '';
-  total.innerHTML = '';
-  count.value = '';
-  category.value = '';
+  clearDataInput();
 }
 
 // Read Data
@@ -73,7 +79,7 @@ function showDataProduct() {
               <td>${e.discount}</td>
               <td>${e.total}</td>
               <td>${e.category}</td>
-              <td><button id="update" class="bi bi-pencil-square"></button></td>
+              <td><button id="update" class="bi bi-pencil-square" onclick="updateDataProduct(${index})"></button></td>
               <td><button id="delete" class="bi bi-trash" onclick="deleteDataProduct(${index})"></button></td>
         </tr>
     `;
@@ -110,14 +116,36 @@ function deleteAllProduct(value) {
   });
 }
 
-function countProduct() {
-  let countItems = +count.value;
-  if (countItems > 0) {
-    for (let i = 0; i < countItems; i++) {
-      submitDataProduct();
-    }
-  } else {
-    submitDataProduct();
-  }
-  clearDataInput();
+// Update Data
+function updateDataProduct(index) {
+  title.value = dataProduct[index].title;
+  price.value = dataProduct[index].price;
+  taxes.value = dataProduct[index].taxes;
+  ads.value = dataProduct[index].ads;
+  discount.value = dataProduct[index].discount;
+  category.value = dataProduct[index].category;
+  getTotal();
+
+  count.style.display = 'none';
+  submit.innerHTML = 'Update';
+  mood = 'update';
+  temp = index;
+
+  scroll({
+    top: 0,
+    behavior: 'smooth',
+  });
+}
+
+// Clear Data Input
+function clearDataInput() {
+  // document.querySelector('.inputField').value = ''
+  title.value = '';
+  price.value = '';
+  taxes.value = '';
+  ads.value = '';
+  discount.value = '';
+  total.innerHTML = '';
+  count.value = '';
+  category.value = '';
 }
