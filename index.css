@@ -68,7 +68,6 @@ input:focus {
 
 #total::before {
   content: 'TOTAL: ';
-  /* background: #222; */
   padding: 9px 0 9px 0;
 }
 
@@ -83,6 +82,11 @@ button {
   transition: 0.2s ease-in;
   margin: 0.3rem auto;
   border-radius: 3px;
+}
+
+table button {
+  background: none;
+  color: #fff;
 }
 
 button:hover {
@@ -118,11 +122,6 @@ table {
   height: 30px;
   text-transform: uppercase;
   overflow-y: scroll;
-}
-
-table button {
-  background: none;
-  color: #fff;
 }
 
 .table {
