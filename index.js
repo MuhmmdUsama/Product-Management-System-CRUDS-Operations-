@@ -23,6 +23,7 @@ function getTotal() {
   const totalResult = +price.value + +taxes.value + +ads.value - +discount.value;
   total.innerHTML = totalResult;
 }
+getTotal();
 
 // Create Data
 function submitDataProduct() {
@@ -39,24 +40,25 @@ function submitDataProduct() {
   };
 
   // check if create or update mood is On
-  if (title.value !== '' && price.value !== '' && category.value !== '' && newProduct.count < 100) {
+  if (title.value !== '' && price.value !== '' && category.value !== '') {
     if (mood === 'creat') {
       // using count number to create multi products
-      if (newProduct.count > 1) {
-        for (let i = 0; i < newProduct.count; i++) { // eslint-disable-line
+      if (newProduct.count > 1 && newProduct.count < 100) {
+        for (let i = 0; i < newProduct.count; i++) {// eslint-disable-line
           dataProduct.push(newProduct);
         }
       } else {
         dataProduct.push(newProduct);
       }
-      clearDataInput(); // eslint-disable-line
+    } else {
+      dataProduct[temp] = newProduct;
+      submit.innerHTML = 'Create';
+      count.style.display = 'block';
+      mood = 'creat';
+      getTotal();
     }
-  } else {
-    dataProduct[temp] = newProduct;
-    submit.innerHTML = 'Create';
-    count.style.display = 'block';
+    clearDataInput(); // eslint-disable-line
   }
-
   localStorage.setItem('product', JSON.stringify(dataProduct));
   showDataProduct(); // eslint-disable-line
 }
@@ -86,9 +88,9 @@ function showDataProduct() {
   document.getElementById('product-tbody').innerHTML = productTable;
 
   if (dataProduct.length > 0) {
-    deleteAllProduct('show');// eslint-disable-line
+    deleteAllProduct('show'); // eslint-disable-line
   } else {
-    deleteAllProduct('none');// eslint-disable-line
+    deleteAllProduct('none'); // eslint-disable-line
   }
 }
 showDataProduct();
@@ -107,7 +109,6 @@ function deleteAllProduct(value) {// eslint-disable-line
     <button id="delete-all" class="${value}" >Clear All Data (${dataProduct.length})</button>`;
 
   document.getElementById('delete-all').addEventListener('click', () => {
-    // localStorage.clear();
     localStorage.setItem('product', JSON.stringify([]));
     dataProduct.splice(0);
     showDataProduct();
@@ -120,9 +121,9 @@ function updateDataProduct(index) {// eslint-disable-line
   price.value = dataProduct[index].price;
   taxes.value = dataProduct[index].taxes;
   ads.value = dataProduct[index].ads;
+  getTotal();
   discount.value = dataProduct[index].discount;
   category.value = dataProduct[index].category;
-  getTotal();
 
   count.style.display = 'none';
   submit.innerHTML = 'Update';
