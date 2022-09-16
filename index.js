@@ -187,8 +187,7 @@ function searchOnData(value) {
         </tr>
     `;
       }
-    } else {
-      if (dataProduct[index].category.includes(value.toLowerCase())) {
+    } else if (dataProduct[index].category.includes(value.toLowerCase())) {
         productTable += `
         <tr>
         <td id = "td-id">${index + 1}</td>
@@ -204,7 +203,7 @@ function searchOnData(value) {
       </tr>
       `;
       }
-    }
+    
   });
   document.getElementById('product-tbody').innerHTML = productTable;
 }
