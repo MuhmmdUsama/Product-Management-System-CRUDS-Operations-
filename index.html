@@ -14,8 +14,7 @@
   <body>
     <div class="crud">
       <header class="head">
-        <h2>CRUD</h2>
-        <p>PRODUCT MANAGEMENT SYSTEM</p>
+        <h2>PRODUCT MANAGEMENT SYSTEM</h2>
       </header>
 
       <div class="inputs">
@@ -70,10 +69,10 @@
 
       <div class="outputs">
         <div class="searchBlock">
-          <input type="text" id="search" placeholder="search" />
+          <input onkeyup="searchOnData(this.value)" type="text" id="search" placeholder="search" />
           <div class="searchBtn">
-            <button id="searchTitle">search by title</button>
-            <button id="searchCategory">search by category</button>
+            <button onclick="getSearchMood(this.id)" id="searchTitle">search by title</button>
+            <button onclick="getSearchMood(this.id)" id="searchCategory">search by category</button>
           </div>
         </div>
         <hr />

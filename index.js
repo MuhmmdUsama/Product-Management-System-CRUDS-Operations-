@@ -9,6 +9,7 @@ let title = document.getElementById('title'),
   submit = document.getElementById('submit');
 
 let mood = 'creat';
+let searchMood = 'title';
 let temp;
 
 //   Data Storage
@@ -19,38 +20,41 @@ submit.addEventListener('click', submitDataProduct);
 
 //   get Total
 function getTotal() {
-  if (+price.value != '' && +price.value > +discount.value) {
-    let totalResult =
-      +price.value + +taxes.value + +ads.value - +discount.value;
-    total.innerHTML = totalResult + `جم `;
-  } else {
-    total.innerHTML = '$$$';
-  }
+  let totalResult = +price.value + +taxes.value + +ads.value - +discount.value;
+  total.innerHTML = totalResult + `جم `;
 }
 
 // Create Data
 function submitDataProduct() {
   let newProduct = {
-    title: title.value,
+    title: title.value.toLowerCase(),
     price: price.value,
     taxes: taxes.value,
     ads: ads.value,
     discount: discount.value,
     total: total.innerHTML,
     count: count.value,
-    category: category.value,
+    category: category.value.toLowerCase(),
     index: dataProduct.length + 1,
   };
 
   //check if create or update mood is On
-  if (mood === 'creat') {
-    //using count number to create multi products
-    if (newProduct.count > 1) {
-      for (let i = 0; i < newProduct.count; i++) {
+  if (
+    title.value != '' &&
+    price.value != '' &&
+    category.value != '' &&
+    newProduct.count < 100
+  ) {
+    if (mood === 'creat') {
+      //using count number to create multi products
+      if (newProduct.count > 1) {
+        for (let i = 0; i < newProduct.count; i++) {
+          dataProduct.push(newProduct);
+        }
+      } else {
         dataProduct.push(newProduct);
       }
-    } else {
-      dataProduct.push(newProduct);
+      clearDataInput();
     }
   } else {
     dataProduct[temp] = newProduct;
@@ -60,7 +64,6 @@ function submitDataProduct() {
 
   localStorage.setItem('product', JSON.stringify(dataProduct));
   showDataProduct();
-  clearDataInput();
 }
 
 // Read Data
@@ -148,4 +151,60 @@ function clearDataInput() {
   total.innerHTML = '';
   count.value = '';
   category.value = '';
+}
+
+// Search on Data By title or category
+function getSearchMood(id) {
+  let search = document.getElementById('search');
+  if (id === 'searchTitle') {
+    searchMood = 'title';
+  } else {
+    searchMood = 'category';
+  }
+  search.value = '';
+  showDataProduct();
+  search.placeholder = 'search by ' + searchMood;
+  search.focus();
+}
+
+function searchOnData(value) {
+  let productTable = '';
+  dataProduct.forEach((e, index) => {
+    if (searchMood === 'title') {
+      if (dataProduct[index].title.includes(value.toLowerCase())) {
+        productTable += `
+         <tr>
+              <td id = "td-id">${index + 1}</td>
+              <td>${e.title}</td>
+              <td>${e.price}</td>
+              <td>${e.taxes}</td>
+              <td>${e.ads}</td>
+              <td>${e.discount}</td>
+              <td>${e.total}</td>
+              <td>${e.category}</td>
+              <td><button id="update" class="bi bi-pencil-square" onclick="updateDataProduct(${index})"></button></td>
+              <td><button id="delete" class="bi bi-trash" onclick="deleteDataProduct(${index})"></button></td>
+        </tr>
+    `;
+      }
+    } else {
+      if (dataProduct[index].category.includes(value.toLowerCase())) {
+        productTable += `
+        <tr>
+        <td id = "td-id">${index + 1}</td>
+        <td>${e.title}</td>
+        <td>${e.price}</td>
+        <td>${e.taxes}</td>
+        <td>${e.ads}</td>
+        <td>${e.discount}</td>
+        <td>${e.total}</td>
+        <td>${e.category}</td>
+        <td><button id="update" class="bi bi-pencil-square" onclick="updateDataProduct(${index})"></button></td>
+        <td><button id="delete" class="bi bi-trash" onclick="deleteDataProduct(${index})"></button></td>
+      </tr>
+      `;
+      }
+    }
+  });
+  document.getElementById('product-tbody').innerHTML = productTable;
 }
