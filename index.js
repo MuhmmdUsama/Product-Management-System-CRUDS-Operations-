@@ -1,3 +1,5 @@
+// import {deleteAllProduct} from './moduls/create.js'
+
 const title = document.getElementById('title'), // eslint-disable-line
   price = document.getElementById('price'),
   taxes = document.getElementById('taxes'),
@@ -6,7 +8,11 @@ const title = document.getElementById('title'), // eslint-disable-line
   total = document.getElementById('total'),
   count = document.getElementById('count'),
   category = document.getElementById('category'),
-  submit = document.getElementById('submit');
+  submit = document.getElementById('submit'),
+  updateDeleteItem = document.querySelector('.product-tbody'),
+  search = document.getElementById('search'),
+  searchTitle = document.getElementById('searchTitle'),
+  searchCategory = document.getElementById('searchCategory');
 
 let mood = 'creat';
 let searchMood = 'title';
@@ -18,14 +24,46 @@ const dataProduct = JSON.parse(localStorage.getItem('product')) || [];
 //   EventListener
 submit.addEventListener('click', submitDataProduct); // eslint-disable-line
 
+updateDeleteItem.addEventListener('click', (e) => {
+  if (e.target.classList.contains('trashBtn')) {
+    deleteDataProduct(e.target.accessKey);
+  } else if (e.target.classList.contains('updateBtn')) {
+    console.log(e.target);
+    updateDataProduct(e.target.accessKey);
+  }
+});
+
+document.addEventListener('click', (e) => {
+  e.target = title;
+  switch (e.target) {
+    case searchTitle:
+      searchMood = 'title';
+      search.focus();
+      break;
+    case searchCategory:
+      searchMood = 'category';
+      search.focus();
+      break;
+  }
+  search.value = '';
+  showDataProduct();
+  search.placeholder = `search by  ${searchMood}`;
+  // search.focus();
+});
+
+search.onkeyup = () => {
+  searchOnData(search.value);
+};
+
 //   get Total
 function getTotal() {
-  const totalResult = +price.value + +taxes.value + +ads.value - +discount.value;
+  const totalResult =
+    +price.value + +taxes.value + +ads.value - +discount.value;
   total.innerHTML = totalResult;
 }
 getTotal();
 
-// Create Data
+// // Create Data
 function submitDataProduct() {
   const newProduct = {
     title: title.value.toLowerCase(),
@@ -44,7 +82,8 @@ function submitDataProduct() {
     if (mood === 'creat') {
       // using count number to create multi products
       if (newProduct.count > 1 && newProduct.count < 100) {
-        for (let i = 0; i < newProduct.count; i++) {// eslint-disable-line
+        for (let i = 0; i < newProduct.count; i++) {
+          // eslint-disable-line
           dataProduct.push(newProduct);
         }
       } else {
@@ -61,6 +100,7 @@ function submitDataProduct() {
   }
   localStorage.setItem('product', JSON.stringify(dataProduct));
   showDataProduct(); // eslint-disable-line
+  title.focus();
 }
 
 // Read Data
@@ -78,12 +118,13 @@ function showDataProduct() {
               <td>${e.discount}</td>
               <td>${e.total}</td>
               <td>${e.category}</td>
-              <td><button id="update" class="bi bi-pencil-square" onclick="updateDataProduct(${index})"></button></td>
-              <td><button id="delete" class="bi bi-trash" onclick="deleteDataProduct(${index})"></button></td>
+              <td><button id="update" class="bi bi-pencil-square updateBtn" accessKey="${index}"></button></td>
+              <td><button id="delete" class="bi bi-trash trashBtn" accessKey="${index}"></button></td>
         </tr>
     `;
-    title.focus();
   });
+  // onclick="updateDataProduct(${index})"
+  // onclick="deleteDataProduct(${index})"
 
   document.getElementById('product-tbody').innerHTML = productTable;
 
@@ -96,14 +137,16 @@ function showDataProduct() {
 showDataProduct();
 
 // Delete Data Product
-function deleteDataProduct(index) {// eslint-disable-line
+function deleteDataProduct(index) {
+  // eslint-disable-line
   dataProduct.splice(index, 1);
   localStorage.setItem('product', JSON.stringify(dataProduct));
   showDataProduct();
 }
 
 // Delete All Data
-function deleteAllProduct(value) {// eslint-disable-line
+function deleteAllProduct(value) {
+  // eslint-disable-line
   const deleteAll = document.querySelector('.delete-all');
   deleteAll.innerHTML = `
     <button id="delete-all" class="${value}" >Clear All Data (${dataProduct.length})</button>`;
@@ -116,7 +159,8 @@ function deleteAllProduct(value) {// eslint-disable-line
 }
 
 // Update Data
-function updateDataProduct(index) {// eslint-disable-line
+function updateDataProduct(index) {
+  // eslint-disable-line
   title.value = dataProduct[index].title;
   price.value = dataProduct[index].price;
   taxes.value = dataProduct[index].taxes;
@@ -130,7 +174,8 @@ function updateDataProduct(index) {// eslint-disable-line
   mood = 'update';
   temp = index;
 
-  scroll({// eslint-disable-line
+  scroll({
+    // eslint-disable-line
     top: 0,
     behavior: 'smooth',
   });
@@ -150,20 +195,22 @@ function clearDataInput() {
 
 // Search on Data By title or category
 
-function getSearchMood(id) {// eslint-disable-line
-  const search = document.getElementById('search');
-  if (id === 'searchTitle') {
-    searchMood = 'title';
-  } else {
-    searchMood = 'category';
-  }
-  search.value = '';
-  showDataProduct();
-  search.placeholder = `search by  ${searchMood}`;
-  search.focus();
-}
+// function getSearchMood(id) {
+//   // eslint-disable-line
+//   const search = document.getElementById('search');
+//   if (id === 'searchTitle') {
+//     searchMood = 'title';
+//   } else {
+//     searchMood = 'category';
+//   }
+//   search.value = '';
+//   showDataProduct();
+//   search.placeholder = `search by  ${searchMood}`;
+//   search.focus();
+// }
 
-function searchOnData(value) {// eslint-disable-line
+function searchOnData(value) {
+  // eslint-disable-line
   let productTable = '';
   dataProduct.forEach((e, index) => {
     if (searchMood === 'title') {
@@ -178,8 +225,8 @@ function searchOnData(value) {// eslint-disable-line
               <td>${e.discount}</td>
               <td>${e.total}</td>
               <td>${e.category}</td>
-              <td><button id="update" class="bi bi-pencil-square" onclick="updateDataProduct(${index})"></button></td>
-              <td><button id="delete" class="bi bi-trash" onclick="deleteDataProduct(${index})"></button></td>
+              <td><button id="update" class="bi bi-pencil-square" accessKey="${index}""></button></td>
+              <td><button id="delete" class="bi bi-trash" accessKey="${index}"></button></td>
         </tr>
     `;
       }
@@ -194,8 +241,8 @@ function searchOnData(value) {// eslint-disable-line
         <td>${e.discount}</td>
         <td>${e.total}</td>
         <td>${e.category}</td>
-        <td><button id="update" class="bi bi-pencil-square" onclick="updateDataProduct(${index})"></button></td>
-        <td><button id="delete" class="bi bi-trash" onclick="deleteDataProduct(${index})"></button></td>
+        <td><button id="update" class="bi bi-pencil-square" accessKey="${index}"></button></td>
+        <td><button id="delete" class="bi bi-trash" accessKey="${index}"></button></td>
       </tr>
       `;
     }

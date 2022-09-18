@@ -12,10 +12,10 @@
     <title>CRUDS</title>
   </head>
   <body>
+    <header class="head">
+      <h2>PRODUCT MANAGEMENT SYSTEM</h2>
+    </header>
     <div class="crud">
-      <header class="head">
-        <h2>PRODUCT MANAGEMENT SYSTEM</h2>
-      </header>
 
       <div class="inputs">
         <input type="text" placeholder="title" id="title" class="inputField" />
@@ -49,7 +49,7 @@
             id="discount"
             class="inputField"
           />
-          <small id="total" class="inputField">----</small>
+          <small id="total" class="inputField">Total Price</small>
         </div>
 
         <input
@@ -69,14 +69,13 @@
 
       <div class="outputs">
         <div class="searchBlock">
-          <input onkeyup="searchOnData(this.value)" type="text" id="search" placeholder="search" />
+          <input type="text" id="search" placeholder="search" /> 
           <div class="searchBtn">
-            <button onclick="getSearchMood(this.id)" id="searchTitle">search by title</button>
-            <button onclick="getSearchMood(this.id)" id="searchCategory">search by category</button>
+            <button id="searchTitle">search by title</button>
+            <button id="searchCategory" >search by category</button>
           </div>
         </div>
         <hr />
-
         <div class="delete-all"></div>
 
         <hr />
@@ -100,6 +99,7 @@
         </div>
       </div>
     </div>
-    <script src="./index.js"></script>
+    <!-- type="module" -->
+    <script  src="./index.js"></script>
   </body>
 </html>
