@@ -55,6 +55,12 @@ search.onkeyup = () => {
   searchOnData(search.value);
 };
 
+[price, taxes, ads, discount].forEach((element) => {
+  element.onkeyup = () => {
+    getTotal();
+  };
+});
+
 //   get Total
 function getTotal() {
   const totalResult =
@@ -123,8 +129,6 @@ function showDataProduct() {
         </tr>
     `;
   });
-  // onclick="updateDataProduct(${index})"
-  // onclick="deleteDataProduct(${index})"
 
   document.getElementById('product-tbody').innerHTML = productTable;
 
@@ -192,22 +196,6 @@ function clearDataInput() {
   count.value = '';
   category.value = '';
 }
-
-// Search on Data By title or category
-
-// function getSearchMood(id) {
-//   // eslint-disable-line
-//   const search = document.getElementById('search');
-//   if (id === 'searchTitle') {
-//     searchMood = 'title';
-//   } else {
-//     searchMood = 'category';
-//   }
-//   search.value = '';
-//   showDataProduct();
-//   search.placeholder = `search by  ${searchMood}`;
-//   search.focus();
-// }
 
 function searchOnData(value) {
   // eslint-disable-line
