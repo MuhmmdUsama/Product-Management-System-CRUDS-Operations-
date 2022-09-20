@@ -1,4 +1,5 @@
-// import {deleteAllProduct} from './moduls/create.js'
+import {deleteAllProduct,deleteDataProduct} from './moduls/delete.js'
+import {updateDataProduct} from './moduls/update.js'
 
 const title = document.getElementById('title'), // eslint-disable-line
   price = document.getElementById('price'),
@@ -14,12 +15,12 @@ const title = document.getElementById('title'), // eslint-disable-line
   searchTitle = document.getElementById('searchTitle'),
   searchCategory = document.getElementById('searchCategory');
 
-let mood = 'creat';
+export let mood = 'creat';
 let searchMood = 'title';
-let temp;
+export let temp;
 
 //   Data Storage
-const dataProduct = JSON.parse(localStorage.getItem('product')) || [];
+export const dataProduct = JSON.parse(localStorage.getItem('product')) || [];
 
 //   EventListener
 submit.addEventListener('click', submitDataProduct); // eslint-disable-line
@@ -28,28 +29,30 @@ updateDeleteItem.addEventListener('click', (e) => {
   if (e.target.classList.contains('trashBtn')) {
     deleteDataProduct(e.target.accessKey);
   } else if (e.target.classList.contains('updateBtn')) {
-    console.log(e.target);
+    mood = 'update'
     updateDataProduct(e.target.accessKey);
+    temp = e.target.accessKey;
   }
 });
 
-document.addEventListener('click', (e) => {
-  e.target = title;
-  switch (e.target) {
-    case searchTitle:
-      searchMood = 'title';
-      search.focus();
-      break;
-    case searchCategory:
-      searchMood = 'category';
-      search.focus();
-      break;
-  }
-  search.value = '';
-  showDataProduct();
-  search.placeholder = `search by  ${searchMood}`;
-  // search.focus();
-});
+[searchTitle,searchCategory].forEach((e)=>{
+  e.addEventListener('click', (e) => {
+    // e.target = title;
+    switch (e.target) {
+      case searchTitle:
+        searchMood = 'title';
+        search.focus();
+        break;
+      case searchCategory:
+        searchMood = 'category';
+        search.focus();
+        break;
+    }
+    search.value = '';
+    showDataProduct();
+    search.placeholder = `search by  ${searchMood}`;
+  });
+})
 
 search.onkeyup = () => {
   searchOnData(search.value);
@@ -62,7 +65,7 @@ search.onkeyup = () => {
 });
 
 //   get Total
-function getTotal() {
+export function getTotal() {
   const totalResult =
     +price.value + +taxes.value + +ads.value - +discount.value;
   total.innerHTML = totalResult;
@@ -110,7 +113,7 @@ function submitDataProduct() {
 }
 
 // Read Data
-function showDataProduct() {
+export function showDataProduct() {
   let productTable = '';
   dataProduct.forEach((e, index) => {
     e.index = index;
@@ -141,49 +144,49 @@ function showDataProduct() {
 showDataProduct();
 
 // Delete Data Product
-function deleteDataProduct(index) {
-  // eslint-disable-line
-  dataProduct.splice(index, 1);
-  localStorage.setItem('product', JSON.stringify(dataProduct));
-  showDataProduct();
-}
+// function deleteDataProduct(index) {
+//   // eslint-disable-line
+//   dataProduct.splice(index, 1);
+//   localStorage.setItem('product', JSON.stringify(dataProduct));
+//   showDataProduct();
+// }
 
 // Delete All Data
-function deleteAllProduct(value) {
-  // eslint-disable-line
-  const deleteAll = document.querySelector('.delete-all');
-  deleteAll.innerHTML = `
-    <button id="delete-all" class="${value}" >Clear All Data (${dataProduct.length})</button>`;
+// function deleteAllProduct(value) {
+//   // eslint-disable-line
+//   const deleteAll = document.querySelector('.delete-all');
+//   deleteAll.innerHTML = `
+//     <button id="delete-all" class="${value}" >Clear All Data (${dataProduct.length})</button>`;
 
-  document.getElementById('delete-all').addEventListener('click', () => {
-    localStorage.setItem('product', JSON.stringify([]));
-    dataProduct.splice(0);
-    showDataProduct();
-  });
-}
+//   document.getElementById('delete-all').addEventListener('click', () => {
+//     localStorage.setItem('product', JSON.stringify([]));
+//     dataProduct.splice(0);
+//     showDataProduct();
+//   });
+// }
 
-// Update Data
-function updateDataProduct(index) {
-  // eslint-disable-line
-  title.value = dataProduct[index].title;
-  price.value = dataProduct[index].price;
-  taxes.value = dataProduct[index].taxes;
-  ads.value = dataProduct[index].ads;
-  getTotal();
-  discount.value = dataProduct[index].discount;
-  category.value = dataProduct[index].category;
+// // Update Data
+// function updateDataProduct(index) {
+//   // eslint-disable-line
+//   title.value = dataProduct[index].title;
+//   price.value = dataProduct[index].price;
+//   taxes.value = dataProduct[index].taxes;
+//   ads.value = dataProduct[index].ads;
+//   getTotal();
+//   discount.value = dataProduct[index].discount;
+//   category.value = dataProduct[index].category;
 
-  count.style.display = 'none';
-  submit.innerHTML = 'Update';
-  mood = 'update';
-  temp = index;
+//   count.style.display = 'none';
+//   submit.innerHTML = 'Update';
+//   mood = 'update';
+//   temp = index;
 
-  scroll({
-    // eslint-disable-line
-    top: 0,
-    behavior: 'smooth',
-  });
-}
+//   scroll({
+//     // eslint-disable-line
+//     top: 0,
+//     behavior: 'smooth',
+//   });
+// }
 
 // Clear Data Input
 function clearDataInput() {
