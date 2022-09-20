@@ -1,4 +1,5 @@
-import {dataProduct,showDataProduct} from '../index.js'
+import {dataProduct} from '../index.js'
+import {showDataProduct} from './read.js'
  
 // Delete Data Product
 export function deleteDataProduct(index) {// eslint-disable-line

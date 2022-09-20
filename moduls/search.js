@@ -1,5 +1,4 @@
 import {dataProduct,searchMood} from '../index.js'
-import {updateDataProduct} from './update.js'
 
 export function searchOnData(value) {
     // eslint-disable-line

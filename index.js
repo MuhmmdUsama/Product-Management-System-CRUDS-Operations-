@@ -1,6 +1,7 @@
-import {deleteAllProduct,deleteDataProduct} from './moduls/delete.js'
+import {deleteDataProduct} from './moduls/delete.js'
 import {updateDataProduct} from './moduls/update.js'
 import {searchOnData} from './moduls/search.js'
+import {showDataProduct} from './moduls/read.js'
 
 const title = document.getElementById('title'), // eslint-disable-line
   price = document.getElementById('price'),
@@ -113,35 +114,35 @@ function submitDataProduct() {
   title.focus();
 }
 
-// Read Data
-export function showDataProduct() {
-  let productTable = '';
-  dataProduct.forEach((e, index) => {
-    e.index = index;
-    productTable += `
-         <tr>
-              <td id = "td-id">${index + 1}</td>
-              <td>${e.title}</td>
-              <td>${e.price}</td>
-              <td>${e.taxes}</td>
-              <td>${e.ads}</td>
-              <td>${e.discount}</td>
-              <td>${e.total}</td>
-              <td>${e.category}</td>
-              <td><button id="update" class="bi bi-pencil-square updateBtn" accessKey="${index}"></button></td>
-              <td><button id="delete" class="bi bi-trash trashBtn" accessKey="${index}"></button></td>
-        </tr>
-    `;
-  });
+// // Read Data
+// export function showDataProduct() {
+//   let productTable = '';
+//   dataProduct.forEach((e, index) => {
+//     e.index = index;
+//     productTable += `
+//          <tr>
+//               <td id = "td-id">${index + 1}</td>
+//               <td>${e.title}</td>
+//               <td>${e.price}</td>
+//               <td>${e.taxes}</td>
+//               <td>${e.ads}</td>
+//               <td>${e.discount}</td>
+//               <td>${e.total}</td>
+//               <td>${e.category}</td>
+//               <td><button id="update" class="bi bi-pencil-square updateBtn" accessKey="${index}"></button></td>
+//               <td><button id="delete" class="bi bi-trash trashBtn" accessKey="${index}"></button></td>
+//         </tr>
+//     `;
+//   });
 
-  document.getElementById('product-tbody').innerHTML = productTable;
+//   document.getElementById('product-tbody').innerHTML = productTable;
 
-  if (dataProduct.length > 0) {
-    deleteAllProduct('show'); // eslint-disable-line
-  } else {
-    deleteAllProduct('none'); // eslint-disable-line
-  }
-}
+//   if (dataProduct.length > 0) {
+//     deleteAllProduct('show'); // eslint-disable-line
+//   } else {
+//     deleteAllProduct('none'); // eslint-disable-line
+//   }
+// }
 showDataProduct();
 
 // Delete Data Product
