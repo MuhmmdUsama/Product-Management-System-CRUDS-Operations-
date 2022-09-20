@@ -1,5 +1,6 @@
 import {deleteAllProduct,deleteDataProduct} from './moduls/delete.js'
 import {updateDataProduct} from './moduls/update.js'
+import {searchOnData} from './moduls/search.js'
 
 const title = document.getElementById('title'), // eslint-disable-line
   price = document.getElementById('price'),
@@ -16,7 +17,7 @@ const title = document.getElementById('title'), // eslint-disable-line
   searchCategory = document.getElementById('searchCategory');
 
 export let mood = 'creat';
-let searchMood = 'title';
+export let searchMood = 'title';
 export let temp;
 
 //   Data Storage
@@ -200,43 +201,43 @@ function clearDataInput() {
   category.value = '';
 }
 
-function searchOnData(value) {
-  // eslint-disable-line
-  let productTable = '';
-  dataProduct.forEach((e, index) => {
-    if (searchMood === 'title') {
-      if (dataProduct[index].title.includes(value.toLowerCase())) {
-        productTable += `
-         <tr>
-              <td id = "td-id">${index + 1}</td>
-              <td>${e.title}</td>
-              <td>${e.price}</td>
-              <td>${e.taxes}</td>
-              <td>${e.ads}</td>
-              <td>${e.discount}</td>
-              <td>${e.total}</td>
-              <td>${e.category}</td>
-              <td><button id="update" class="bi bi-pencil-square" accessKey="${index}""></button></td>
-              <td><button id="delete" class="bi bi-trash" accessKey="${index}"></button></td>
-        </tr>
-    `;
-      }
-    } else if (dataProduct[index].category.includes(value.toLowerCase())) {
-      productTable += `
-        <tr>
-        <td id = "td-id">${index + 1}</td>
-        <td>${e.title}</td>
-        <td>${e.price}</td>
-        <td>${e.taxes}</td>
-        <td>${e.ads}</td>
-        <td>${e.discount}</td>
-        <td>${e.total}</td>
-        <td>${e.category}</td>
-        <td><button id="update" class="bi bi-pencil-square" accessKey="${index}"></button></td>
-        <td><button id="delete" class="bi bi-trash" accessKey="${index}"></button></td>
-      </tr>
-      `;
-    }
-  });
-  document.getElementById('product-tbody').innerHTML = productTable;
-}
+// function searchOnData(value) {
+//   // eslint-disable-line
+//   let productTable = '';
+//   dataProduct.forEach((e, index) => {
+//     if (searchMood === 'title') {
+//       if (dataProduct[index].title.includes(value.toLowerCase())) {
+//         productTable += `
+//          <tr>
+//               <td id = "td-id">${index + 1}</td>
+//               <td>${e.title}</td>
+//               <td>${e.price}</td>
+//               <td>${e.taxes}</td>
+//               <td>${e.ads}</td>
+//               <td>${e.discount}</td>
+//               <td>${e.total}</td>
+//               <td>${e.category}</td>
+//               <td><button id="update" class="bi bi-pencil-square" accessKey="${index}""></button></td>
+//               <td><button id="delete" class="bi bi-trash" accessKey="${index}"></button></td>
+//         </tr>
+//     `;
+//       }
+//     } else if (dataProduct[index].category.includes(value.toLowerCase())) {
+//       productTable += `
+//         <tr>
+//         <td id = "td-id">${index + 1}</td>
+//         <td>${e.title}</td>
+//         <td>${e.price}</td>
+//         <td>${e.taxes}</td>
+//         <td>${e.ads}</td>
+//         <td>${e.discount}</td>
+//         <td>${e.total}</td>
+//         <td>${e.category}</td>
+//         <td><button id="update" class="bi bi-pencil-square" accessKey="${index}"></button></td>
+//         <td><button id="delete" class="bi bi-trash" accessKey="${index}"></button></td>
+//       </tr>
+//       `;
+//     }
+//   });
+//   document.getElementById('product-tbody').innerHTML = productTable;
+// }
