@@ -30,13 +30,11 @@ body {
   margin: 1rem 0;
 }
 
-.inputs{
-
+.inputs {
   width: 30%;
 }
 
-.outputs{
-
+.outputs {
   width: 65%;
 }
 
@@ -63,7 +61,6 @@ input:focus {
 
 .price-section {
   display: grid;
-  grid-template-columns: repeat(2 fr);
   text-align: center;
   margin: 1rem 0;
 }
