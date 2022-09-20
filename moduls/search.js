@@ -1,12 +1,12 @@
-import {dataProduct,searchMood} from '../index.js'
+import { dataProduct, searchMood } from '../index.js'; // eslint-disable-line
 
-export function searchOnData(value) {
-    // eslint-disable-line
-    let productTable = '';
-    dataProduct.forEach((e, index) => {
-      if (searchMood === 'title') {
-        if (dataProduct[index].title.includes(value.toLowerCase())) {
-          productTable += `
+export default function searchOnData(value) {
+  // eslint-disable-line
+  let productTable = '';
+  dataProduct.forEach((e, index) => {
+    if (searchMood === 'title') {
+      if (dataProduct[index].title.includes(value.toLowerCase())) {
+        productTable += `
            <tr>
                 <td id = "td-id">${index + 1}</td>
                 <td>${e.title}</td>
@@ -20,9 +20,9 @@ export function searchOnData(value) {
                 <td><button id="delete" class="bi bi-trash trashBtn" accessKey="${index}"></button></td>
           </tr>
       `;
-        }
-      } else if (dataProduct[index].category.includes(value.toLowerCase())) {
-        productTable += `
+      }
+    } else if (dataProduct[index].category.includes(value.toLowerCase())) {
+      productTable += `
           <tr>
           <td id = "td-id">${index + 1}</td>
           <td>${e.title}</td>
@@ -36,7 +36,7 @@ export function searchOnData(value) {
           <td><button id="delete" class="bi bi-trash trashBtn" accessKey="${index}"></button></td>
         </tr>
         `;
-      }
-    });
-    document.getElementById('product-tbody').innerHTML = productTable;
-  }
+    }
+  });
+  document.getElementById('product-tbody').innerHTML = productTable;
+}

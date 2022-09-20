@@ -1,12 +1,12 @@
-import {dataProduct} from '../index.js'
-import {deleteAllProduct} from './delete.js'
+import { dataProduct } from '../index.js'; // eslint-disable-line
+import { deleteAllProduct } from './delete.js'; // eslint-disable-line
 
 // Read Data
-export function showDataProduct() {
-    let productTable = '';
-    dataProduct.forEach((e, index) => {
-      e.index = index;
-      productTable += `
+function showDataProduct() {
+  let productTable = '';
+  dataProduct.forEach((e, index) => {
+    e.index = index;
+    productTable += `
            <tr>
                 <td id = "td-id">${index + 1}</td>
                 <td>${e.title}</td>
@@ -20,13 +20,15 @@ export function showDataProduct() {
                 <td><button id="delete" class="bi bi-trash trashBtn" accessKey="${index}"></button></td>
           </tr>
       `;
-    });
-  
-    document.getElementById('product-tbody').innerHTML = productTable;
-  
-    if (dataProduct.length > 0) {
-      deleteAllProduct('show'); // eslint-disable-line
-    } else {
-      deleteAllProduct('none'); // eslint-disable-line
-    }
+  });
+
+  document.getElementById('product-tbody').innerHTML = productTable;
+
+  if (dataProduct.length > 0) {
+    deleteAllProduct('show');
+  } else {
+    deleteAllProduct('none');
   }
+}
+
+export default showDataProduct;
