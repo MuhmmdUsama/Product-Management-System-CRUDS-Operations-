@@ -14,8 +14,9 @@
 
 - HTML
 - Css
-- JavaScript
+- JavaScript & ES6 modules
 - LocalStorage
+- HTML,CSS,JS Linters
 
 ## Live Demo ([Go Live](https://muhmmdusama.github.io/Product-Management-System-CRUDS-Operations-/))
 
