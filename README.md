@@ -8,7 +8,7 @@
 - Store all product info in Local Storage
 - Show how many items are in Local Storage
 
-<img src="./00.png" width="400px"/>
+<img src="./00.png" width="500px"/>
 
 ## Built With
 
